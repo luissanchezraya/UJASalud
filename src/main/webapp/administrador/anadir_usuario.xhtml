@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="jakarta.faces.passthrough">
+
+<ui:composition template="../WEB-INF/plantilla.xhtml">
+    <ui:define name="titulo">Añadir usuario</ui:define>
+    <ui:define name="contenido">
+
+        <f:metadata>
+            <f:viewAction action="#{ControladorUsuarios.prepararNuevoUsuario}" />
+        </f:metadata>
+
+        <div class="container my-4">
+            <h2 class="text-center mb-4">Introduce los datos del nuevo usuario</h2>
+
+            <h:messages globalOnly="true" style="list-style-type: none;" styleClass="alert alert-success" />
+
+            <h:form class="row">
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="nombre" value="Nombre:" styleClass="form-label"/>
+                    <h:inputText id="nombre"
+                                 value="#{ControladorUsuarios.usuarioNuevo.nombre}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El nombre es obligatorio">
+                        <f:passThroughAttribute name="placeholder" value=""/>
+                    </h:inputText>
+                    <h:message for="nombre" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="usuario" value="Usuario:" styleClass="form-label"/>
+                    <h:inputText id="usuario"
+                                 value="#{ControladorUsuarios.usuarioNuevo.usuario}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El usuario es obligatorio."
+                                 placeholder="Usuario"/>
+                    <h:message for="usuario" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="email" value="Email:" styleClass="form-label"/>
+                    <h:inputText id="email"
+                                 value="#{ControladorUsuarios.usuarioNuevo.email}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El correo es obligatorio"
+                                 placeholder="Email (correo@ejemplo.com)"/>
+                    <h:message for="email" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="password" value="Contraseña:" styleClass="form-label"/>
+                    <h:inputSecret id="password"
+                                   value="#{ControladorUsuarios.usuarioNuevo.contrasena}"
+                                   styleClass="form-control"
+                                   required="true"
+                                   requiredMessage="La contraseña es obligatoria"
+                                   placeholder="Contraseña"/>
+                    <h:message for="password" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="dni" value="DNI:" styleClass="form-label"/>
+                    <h:inputText id="dni"
+                                 value="#{ControladorUsuarios.usuarioNuevo.dni}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El DNI es obligatorio"
+                                 placeholder="DNI (12345678A)"/>
+                    <h:message for="dni" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" styleClass="form-label"/>
+                    <h:inputText id="fechaNacimiento" pt:type="date"
+                                 value="#{ControladorUsuarios.usuarioNuevo.fechaNacimiento}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="La fecha de nacimiento es obligatoria">
+                        <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+                    </h:inputText>
+                    <h:message for="fechaNacimiento" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="tarjeta" value="Número de tarjeta UJASalud:" styleClass="form-label"/>
+                    <h:inputText id="tarjeta"
+                                 value="#{ControladorUsuarios.usuarioNuevo.numeroDeTarjeta}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El número de tarjeta es obligatorio"
+                                 placeholder="Número de tarjeta UJASalud (AB0123456789)"/>
+                    <h:message for="tarjeta" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="telefono" value="Teléfono:" styleClass="form-label"/>
+                    <h:inputText id="telefono"
+                                 value="#{ControladorUsuarios.usuarioNuevo.telefono}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El teléfono es obligatorio"
+                                 placeholder="Teléfono (600123456)"/>
+                    <h:message for="telefono" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="direccion" value="Dirección:" styleClass="form-label"/>
+                    <h:inputTextarea id="direccion"
+                                     value="#{ControladorUsuarios.usuarioNuevo.direccion}"
+                                     styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="La dirección es obligatoria"
+                                     placeholder="Dirección completa"
+                                     rows="3"/>
+                    <h:message for="direccion" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="rol" value="Selecciona el rol:" styleClass="form-label"/>
+                    <h:selectOneMenu id="rol"
+                                     value="#{ControladorUsuarios.usuarioNuevo.rol}"
+                                     styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="El rol es obligatorio">
+                        <f:selectItem itemLabel="Seleccione un rol" itemValue="" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="ADMINISTRADOR" itemValue="ADMINISTRADOR"/>
+                        <f:selectItem itemLabel="MÉDICO" itemValue="MEDICO"/>
+                        <f:selectItem itemLabel="PACIENTE" itemValue="PACIENTE"/>
+                    </h:selectOneMenu>
+                    <h:message for="rol" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 text-center">
+                    <h:commandButton value="Crear usuario"
+                                     action="#{ControladorUsuarios.registroUsuarioAdminstrador}"
+                                     styleClass="btn btn-info w-50"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

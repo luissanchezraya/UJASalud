@@ -1,0 +1,39 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:h="jakarta.faces.html"
+              xmlns:composite="jakarta.faces.composite">
+
+<composite:interface>
+    <composite:attribute name="value" required="true" targets=""/>
+</composite:interface>
+
+    <composite:implementation>
+        <ul class="list-unstyled">
+            <li><strong>Nombre: </strong>
+                <h:outputText value="#{cc.attrs.value.nombre}"/>
+            </li>
+            <li><strong>Usuario: </strong>
+                <h:outputText value="#{cc.attrs.value.usuario}"/>
+            </li>
+            <li><strong>Email: </strong>
+                <h:outputText value="#{cc.attrs.value.correo}"/>
+            </li>
+            <li><strong>DNI: </strong>
+                <h:outputText value="#{cc.attrs.value.dni}"/>
+            </li>
+            <li><strong>Fecha de nacimiento: </strong>
+                <h:outputText value="#{cc.attrs.value.fechaNacimiento}"/>
+            </li>
+            <li><strong>Tarjeta UJASalud: </strong>
+                <h:outputText value="#{cc.attrs.value.tarjeta}"/>
+            </li>
+            <li><strong>Teléfono: </strong>
+                <h:outputText value="#{cc.attrs.value.telefono}"/>
+            </li>
+            <li><strong>Dirección: </strong>
+                <h:outputText value="#{cc.attrs.value.direccion}"/>
+            </li>
+        </ul>
+    </composite:implementation>
+
+</ui:component>

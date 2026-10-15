@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html">
+
+<h:head>
+   <meta charset="UTF-8" />
+   <title>Calendario</title>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" />
+   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+   <h:outputScript name="calendar.js" />
+</h:head>
+
+<h:body>
+   <ui:include src="../WEB-INF/recursos_bootstrap.xhtml" />
+   <ui:include src="../WEB-INF/cabecera.xhtml" />
+
+   <div class="container my-4">
+      <h2 class="text-center mb-4">Seleccione un día para ver sus citas</h2>
+      <div id="calendar" style="max-width: 900px; margin: auto; min-height: 500px;"></div>
+   </div>
+</h:body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <!-- Definir los roles de usuario que se van a utilizar en las reglas de acceso -->
+    <security-role>
+        <role-name>USUARIOS</role-name>
+    </security-role>
+    <security-role>
+        <role-name>MEDICOS</role-name>
+    </security-role>
+    <security-role>
+        <role-name>ADMINISTRADORES</role-name>
+    </security-role>
+
+    <!-- Reglas de control de acceso -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Acceso a pantalla_inicio</web-resource-name>
+            <url-pattern>/pantalla_inicio.xhtml</url-pattern>
+            <url-pattern>/pantalla_busqueda.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>USUARIOS</role-name>
+            <role-name>MEDICOS</role-name>
+            <role-name>ADMINISTRADORES</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Acceso a administracion y gestion</web-resource-name>
+            <url-pattern>/administrador/administracion_hospital.xhtml</url-pattern>
+            <url-pattern>/administrador/administracion_usuario.xhtml</url-pattern>
+            <url-pattern>/administrador/anadir_usuario.xhtml</url-pattern>
+            <url-pattern>/administrador/anadir_hospital.xhtml</url-pattern>
+            <url-pattern>/administrador/editar_usuario.xhtml</url-pattern>
+            <url-pattern>/administrador/editar_hospital.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMINISTRADORES</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Acceso a citas médicas</web-resource-name>
+            <url-pattern>/medico/citas.xhtml</url-pattern> <!-- Página protegida -->
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>MEDICOS</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Configuración de la fuente de datos -->
+    <data-source>
+        <name>java:global/jdbc/UJASalud</name>
+        <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
+        <url>jdbc:h2:~/h2db/dawUJASalud;MODE=LEGACY;AUTO_SERVER=TRUE</url>
+        <user>dawuser</user>
+        <password>dawuser</password>
+        <initial-pool-size>2</initial-pool-size>
+        <max-pool-size>10</max-pool-size>
+        <min-pool-size>5</min-pool-size>
+    </data-source>
+
+    <!-- Configuración de filtros y codificación -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>daw.app.CharacterEncodingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Página de bienvenida -->
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
+</web-app>

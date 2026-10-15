@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html">
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Editar Hospital</title>
+</h:head>
+
+<h:body>
+    <ui:include src="../WEB-INF/recursos_bootstrap.xhtml"/>
+    <ui:include src="../WEB-INF/cabecera.xhtml" />
+
+    <div class="container-fluid p-0">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3 bg-light">
+                        <section>
+                            <div class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <p class="font-weight-bold mr-2">Nombre del Hospital:</p>
+                                    <p>#{ControladorHospitales.hospitalAEditar.nombre}</p>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <p class="font-weight-bold mr-2">Dirección:</p>
+                                    <p>#{ControladorHospitales.hospitalAEditar.direccion}</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <h:form>
+                        <div class="card p-3 bg-light">
+                            <h5 class="card-title text-center">Actualizar Información del Hospital</h5>
+                            <div class="mb-3">
+                                <h:outputLabel for="nombre" value="Nombre del Hospital:" />
+                                <h:inputText id="nombre" value="#{ControladorHospitales.hospitalAEditar.nombre}" class="form-control"/>
+                                <h:message for="nombre" styleClass="text-danger"/>
+                            </div>
+                            <div class="mb-3">
+                                <h:outputLabel for="direccion" value="Dirección:" />
+                                <h:inputTextarea id="direccion" value="#{ControladorHospitales.hospitalAEditar.direccion}" class="form-control" rows="3"/>
+                                <h:message for="direccion" styleClass="text-danger"/>
+                            </div>
+
+                            <h:commandButton value="Actualizar" action="#{ControladorHospitales.actualizarHospital()}" styleClass="btn btn-primary"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

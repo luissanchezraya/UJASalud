@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><ui:insert name="titulo">Título por defecto</ui:insert></title>
+    <ui:include src="../WEB-INF/recursos_bootstrap.xhtml" />
+</h:head>
+
+<h:body>
+    <ui:include src="../WEB-INF/cabecera.xhtml" />
+
+    <ui:insert name="contenido">
+    </ui:insert>
+
+    <h:panelGroup rendered="#{request.isUserInRole('USUARIOS')} or #{request.isUserInRole('MEDICOS')}">
+        <ui:include src="../WEB-INF/pie_pagina.xhtml" />
+    </h:panelGroup>
+</h:body>
+</html>

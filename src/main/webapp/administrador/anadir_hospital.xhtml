@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<ui:composition template="../WEB-INF/plantilla.xhtml">
+    <ui:define name="titulo">Añadir hospital</ui:define>
+    <ui:define name="contenido">
+        <div class="container my-4">
+            <h2 class="text-center mb-4">Introduce los datos del nuevo hospital</h2>
+
+            <h:messages globalOnly="true" style="list-style-type: none;" styleClass="alert alert-success" />
+
+            <h:form class="row">
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="nombre" value="Nombre:" styleClass="form-label"/>
+                    <h:inputText id="nombre"
+                                 value="#{ControladorHospitales.nuevoNombre}"
+                                 styleClass="form-control"
+                                 required="true"
+                                 requiredMessage="El nombre es obligatorio">
+                        <f:passThroughAttribute name="placeholder" value=""/>
+                    </h:inputText>
+                    <h:message for="nombre" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <h:outputLabel for="direccion" value="Dirección:" styleClass="form-label"/>
+                    <h:inputTextarea id="direccion"
+                                     value="#{ControladorHospitales.nuevaDireccion}"
+                                     styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="La dirección es obligatoria"
+                                     placeholder="Dirección completa"
+                                     rows="3"/>
+                    <h:message for="direccion" styleClass="text-danger"/>
+                </div>
+
+                <div class="col-12 text-center">
+                    <h:commandButton value="Crear hospital" action="#{ControladorHospitales.registroHospital}"
+                                     styleClass="btn btn-info w-50"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

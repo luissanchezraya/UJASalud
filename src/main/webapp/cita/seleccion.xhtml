@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<ui:composition template="../WEB-INF/plantilla.xhtml">
+    <ui:define name="titulo">Selección de Cita</ui:define>
+
+    <ui:define name="contenido">
+        <div style="display: flex; flex-direction: column; min-height: 100vh;">
+            <main class="container my-5" style="flex: 1; display: flex; flex-direction: column;">
+                <h2 class="text-center mb-4">Selecciona un Médico</h2>
+
+                <h:form id="formBuscar">
+                    <div class="mb-3">
+                        <h:panelGroup>
+                            <h:outputLabel for="medico" styleClass="form-label"/>
+                            <strong>Buscar por médico:</strong>
+                        </h:panelGroup>
+                        <h:inputText id="medico" value="#{ControladorCitas.medico}" class="form-control"/>
+                    </div>
+
+                    <h:messages id="mensajesError" globalOnly="true" style="list-style-type: none;" styleClass="alert alert-danger"/>
+
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <h:commandButton value="Buscar" action="#{ControladorCitas.buscarCitaAJAX}" class="btn btn-primary">
+                            <f:ajax execute="@form" render="listaCitas mensajesError"/>
+                        </h:commandButton>
+                    </div>
+                </h:form>
+
+                <h:panelGroup id="listaCitas" style="flex: 1; margin-bottom: 50px;">
+                    <ui:repeat value="#{CitaSession.citas}" var="cita">
+                        <div class="doctor-card bg-white d-flex justify-content-between align-items-center p-4 rounded shadow mb-4">
+                            <div class="d-flex align-items-center">
+                                <h:graphicImage alt="Doctor's avatar" class="w-16 h-16 mr-4" value="../resources/imagenes/logopersona.png" width="120px"/>
+                                <div class="doctor-info">
+                                    <p class="font-weight-bold mb-1">#{cita.medico.nombre}</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <p class="mb-1"><strong>Hospital: </strong> #{cita.hospital.nombre}</p>
+                                <p class="mb-1"><strong>Ubicación: </strong> #{cita.ubicacion}</p>
+                                <p class="mb-1"><strong>Fecha: </strong> #{cita.fecha}</p>
+                                <p class="mb-1"><strong>Tipo de consulta: </strong> #{cita.tipoDeConsulta}</p>
+                                <p class="mb-1"><strong>Precio: </strong> #{cita.precio}</p>
+                            </div>
+                            <h:commandLink value="Seleccionar" action="#{ControladorCitas.seleccionarCita(cita)}" class="btn btn-primary ml-4">
+                                <f:ajax execute="@form" render="doctorInfo" />
+                            </h:commandLink>
+                        </div>
+                    </ui:repeat>
+                </h:panelGroup>
+            </main>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

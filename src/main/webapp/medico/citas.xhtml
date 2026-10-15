@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../WEB-INF/plantilla.xhtml">
+    <ui:define name="titulo">Citas del Médico</ui:define>
+
+    <ui:define name="contenido">
+        <div class="container my-4">
+            <h2 class="text-center mb-4">Citas del Médico</h2>
+
+            <h:form>
+                <p:dataTable var="cita" value="#{ControladorCitas.citasFiltradas}"
+                             paginator="true" rows="5"
+                             emptyMessage="No hay citas disponibles"
+                             tableStyle="width:100%"
+                             sortMode="multiple">
+
+                    <p:column headerText="Paciente" sortBy="#{cita.paciente != null ? cita.paciente.nombre : ''}">
+                        <p:outputLabel value="#{cita.paciente != null ? cita.paciente.nombre : 'SIN PACIENTE'}" />
+                    </p:column>
+
+                    <p:column headerText="Fecha" sortBy="#{cita.fecha}">
+                        <p:outputLabel value="#{cita.fecha}" />
+                    </p:column>
+
+                    <p:column headerText="Hora" sortBy="#{cita.hora}" width="10%">
+                        <h:outputText value="#{cita.hora}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo de Consulta" sortBy="#{cita.tipoDeConsulta}">
+                        <p:outputLabel value="#{cita.tipoDeConsulta}" />
+                    </p:column>
+
+                    <p:column headerText="Estado" sortBy="#{cita.estado}">
+                        <p:outputLabel value="#{cita.estado}" />
+                    </p:column>
+
+                    <p:column headerText="Precio" sortBy="#{cita.precio}">
+                        <h:outputText value="#{cita.precio}">
+                            <f:convertNumber type="currency" currencySymbol="€" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Acciones" width="25%">
+                        <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
+                            <p:commandButton value="Más info"
+                                             action="#{ControladorCitas.verDetalle(cita)}"
+                                             class="btn btn-info"
+                                             update="detalleCita"
+                                             icon="pi pi-search"
+                                             style="white-space: nowrap; width: 100%;"/>
+
+                            <p:commandButton value="Editar"
+                                             action="#{ControladorCitas.editarCita(cita)}"
+                                             class="btn btn-primary"
+                                             icon="pi pi-pencil"
+                                             style="white-space: nowrap; width: 100%;"/>
+
+                            <p:commandButton value="Cancelar"
+                                             action="#{ControladorCitas.eliminarCita(cita)}"
+                                             update="@form"
+                                             class="btn btn-danger"
+                                             icon="pi pi-trash"
+                                             style="white-space: nowrap; width: 100%;"
+                                             onclick="return confirm('¿Estás seguro de que deseas cancelar esta cita?');"/>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <h:panelGroup id="detalleCita" layout="block" style="margin-bottom: 100px;">
+                <h:form>
+                    <h:panelGroup rendered="#{not empty ControladorCitas.citaSeleccionada}">
+                        <h3>Detalles de la Cita</h3>
+                        <p><strong>Paciente:</strong> #{ControladorCitas.citaSeleccionada.paciente.nombre}</p>
+                        <p><strong>Fecha:</strong> #{ControladorCitas.citaSeleccionada.fecha}</p>
+                        <p><strong>Hora:</strong> #{ControladorCitas.citaSeleccionada.hora}</p>
+                        <p><strong>Tipo:</strong> #{ControladorCitas.citaSeleccionada.tipoDeConsulta}</p>
+                        <p><strong>Estado:</strong> #{ControladorCitas.citaSeleccionada.estado}</p>
+                        <p><strong>Precio:</strong> #{ControladorCitas.citaSeleccionada.precio} €</p>
+                        <p><strong>Hospital:</strong> #{ControladorHospitales.hospitalSeleccionado.nombre}</p>
+                        <p><strong>Ubicación:</strong> #{ControladorHospitales.hospitalSeleccionado.direccion}</p>
+                        <p:commandButton value="Cerrar" action="#{ControladorCitas.reset()}"
+                                         icon="pi pi-times"
+                                         update="detalleCita"
+                                         class="btn btn-secondary"
+                                         style="margin-top: 10px;"/>
+                    </h:panelGroup>
+                </h:form>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

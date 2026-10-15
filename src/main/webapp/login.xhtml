@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+   <meta charset="UTF-8" />
+   <title>Login</title>
+</h:head>
+<h:body>
+   <ui:include src="WEB-INF/recursos_bootstrap.xhtml" />
+
+   <div class="login-container d-flex justify-content-center align-items-center vh-100">
+      <div class="content bg-white p-4 rounded shadow-lg" style="width: 100%; max-width: 400px;">
+         <div class="logo-container text-center mb-4">
+            <h:link outcome="pantalla_inicio">
+               <h:graphicImage library="imagenes" name="logo-UJASalud-negro.png" style="width: 60px;" class="img-fluid"/>
+            </h:link>
+            <h1 class="h4">UJASalud</h1>
+         </div>
+
+         <h:panelGroup rendered="#{param.error != null}">
+            <p class="alert alert-danger">Error de autenticación</p>
+         </h:panelGroup>
+
+         <form action="j_security_check" method="POST">
+            <label for="j_username">Usuario</label>
+            <input type="text" name="j_username" id="j_username" class="form-control"/>
+
+            <label for="j_password">Contraseña</label>
+            <input type="password" name="j_password" id="j_password" class="form-control"/>
+
+            <input type="submit" value="Iniciar sesión" class="btn btn-info w-100" style="margin-top: 20px"/>
+         </form>
+
+
+         <div class="registro-texto text-center mt-3">
+            <p class="mt-3">¿No tienes cuenta?</p>
+            <h:link outcome="registro" value="Regístrate gratis"/>
+         </div>
+      </div>
+   </div>
+   <ui:include src="WEB-INF/pie_pagina.xhtml">
+      <ui:param name="mensaje" value="Bienvenido a UJASalud, tu plataforma de salud online." />
+   </ui:include>
+</h:body>
+</html>

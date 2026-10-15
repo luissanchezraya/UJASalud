@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="jakarta.faces.passthrough">
+
+<ui:composition template="/WEB-INF/plantilla.xhtml">
+   <ui:define name="titulo">Pantalla De Búsqueda</ui:define>
+
+   <ui:define name="contenido">
+      <div class="container my-4">
+         <h:form id="form" class="row justify-content-center">
+            <div class="col-12 p-3 bg-light border rounded">
+               <div class="col-12 bg-secondary text-light p-3 rounded-top">
+                  <h2 class="text-center m-0 fw-bold">Buscar Cita Médica</h2>
+               </div>
+
+               <div class="mb-3">
+                  <h:outputLabel for="fecha" value="Fecha:" class="form-label"/>
+                  <h:inputText id="fecha" value="#{ControladorCitas.fecha}" class="form-control" pt:type="date"
+                               required="true" requiredMessage="La fecha es obligatoria.">
+                     <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                  </h:inputText>
+                  <h:message for="fecha" styleClass="text-danger"/>
+               </div>
+
+               <div class="mb-3">
+                  <h:outputLabel for="medico" value="Nombre del Doctor:" class="form-label"/>
+                  <h:inputText id="medico" value="#{ControladorCitas.medico}" class="form-control" />
+               </div>
+
+               <h:messages id="mensajesError" globalOnly="true" style="list-style-type: none;" styleClass="alert alert-danger"/>
+
+               <div class="mb-3">
+                  <h:outputLabel for="hospital" value="Ubicación (Hospital):" class="form-label"/>
+                  <h:selectOneMenu id="hospital" value="#{ControladorCitas.hospitalSeleccionado}" class="form-select">
+                     <f:selectItem itemLabel="Seleccione un hospital" itemValue="#{null}" noSelectionOption="true" />
+                     <f:selectItems value="#{ControladorCitas.listaHospitales}"
+                                    var="h"
+                                    itemValue="#{h.nombre}"
+                                    itemLabel="#{h.nombre}" />
+                  </h:selectOneMenu>
+               </div>
+
+               <div class="text-center">
+                  <h:commandButton value="Buscar" action="#{ControladorCitas.buscarCita}" class="btn btn-primary mr-2">
+                  </h:commandButton>
+               </div>
+
+            </div>
+         </h:form>
+      </div>
+   </ui:define>
+</ui:composition>
+</html>
